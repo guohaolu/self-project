@@ -14,15 +14,16 @@ public class QuickSortDemo {
     }
 
     public static int partition(int[] arr, int left, int right) {
-        int i=left-1, j=left;
+        int i = left - 1, j = left;
         int p = arr[right];
         for (; j <= right; j++) {
             if (arr[j] <= p) {
-                swap(arr, j, i+1);
+                swap(arr, j, i + 1);
                 i++;
             }
         }
         return i;
+
     }
 
 }
