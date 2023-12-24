@@ -1,6 +1,6 @@
-package sort;
+package org.example.sort;
 
-import static util.SortUtil.swap;
+import org.example.util.SortUtil;
 
 public class InsertionSortDemo {
 
@@ -8,7 +8,7 @@ public class InsertionSortDemo {
         // left..i-1   i..right
         for (int i = left + 1; i <= right; i++) {
             for (int j = i; j > left && arr[j] < arr[j - 1]; j--) {
-                swap(arr, j, j - 1);
+                SortUtil.swap(arr, j, j - 1);
             }
         }
 

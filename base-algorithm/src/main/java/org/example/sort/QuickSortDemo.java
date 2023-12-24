@@ -1,6 +1,6 @@
-package sort;
+package org.example.sort;
 
-import static util.SortUtil.swap;
+import org.example.util.SortUtil;
 
 public class QuickSortDemo {
 
@@ -18,7 +18,7 @@ public class QuickSortDemo {
         int p = arr[right];
         for (; j <= right; j++) {
             if (arr[j] <= p) {
-                swap(arr, j, i + 1);
+                SortUtil.swap(arr, j, i + 1);
                 i++;
             }
         }

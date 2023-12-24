@@ -1,4 +1,4 @@
-package sort;
+package org.example.sort;
 
 public class MergeSortDemo {
     public static void mergeSort(int[] arr, int left, int right) {

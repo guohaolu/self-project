@@ -1,6 +1,6 @@
-package sort;
+package org.example.sort;
 
-import static util.SortUtil.swap;
+import static org.example.util.SortUtil.swap;
 
 public class SelectionSortDemo {
 

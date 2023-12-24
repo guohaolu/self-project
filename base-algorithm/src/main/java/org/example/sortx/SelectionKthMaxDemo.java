@@ -1,6 +1,6 @@
-package sortx;
+package org.example.sortx;
 
-import static sort.QuickSortDemo.partition;
+import static org.example.sort.QuickSortDemo.partition;
 
 public class SelectionKthMaxDemo {
 
