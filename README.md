@@ -4,12 +4,15 @@
 <!-- TOC -->
 * [self-algorithm](#self-algorithm)
   * [base-algorithm](#base-algorithm)
+  * [algorithm-design](#algorithm-design)
   * [business-algorithm](#business-algorithm)
     * [git diff原理](#git-diff原理)
 <!-- TOC -->
 
 ## base-algorithm
 基础算法
+## algorithm-design
+算法设计——康奈尔大学
 ## business-algorithm
 《业务开发算法50讲》by：黄清昊
 
