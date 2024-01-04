@@ -36,6 +36,13 @@ public class InTraversalSolution {
         }
     }
 
+    /**
+     * 如果访问操作是void，则此方法也是void
+     * <p>
+     * 如果题目为输出中序序列，返回List，则此方法返回val，然后调用方再将元素收集
+     *
+     * @param stack 辅助栈
+     */
     public void doTraversal(Deque<TreeNode> stack) {
         TreeNode node = stack.pop();
         // 访问节点，同时，右孩子左路径入栈
