@@ -13,4 +13,8 @@ public class TreeNode {
     public TreeNode(int val) {
         this.val = val;
     }
+
+    public void visit() {
+        System.out.println(this.val);
+    }
 }
