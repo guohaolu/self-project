@@ -2,7 +2,10 @@ package org.example.tree;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -21,6 +24,7 @@ public class PreorderTraversalSolution {
         root.right = new TreeNode(3);
         root.left.left = new TreeNode(4);
         root.left.right = new TreeNode(5);
+
         System.out.println(new PreorderTraversalSolution().preorderTraversal(root));
     }
 
@@ -48,5 +52,22 @@ public class PreorderTraversalSolution {
             // left -> right -> root : left.add(node.val)
             return left;
         }).flatMap(List::stream).collect(Collectors.toList());
+    }
+
+    public int[] twoSum(int[] nums, int target) {
+        if (nums == null || nums.length < 2) {
+            return new int[2];
+        }
+        Map<Integer, Integer> numIdxMap = IntStream.range(0, nums.length)
+                .boxed()
+                .collect(Collectors.toMap(idx -> nums[idx], Function.identity()));
+        for (Map.Entry<Integer, Integer> node : numIdxMap.entrySet()) {
+            int needNum = target - node.getKey();
+            Integer value = numIdxMap.get(needNum);
+            if (value != null) {
+                return new int[] { node.getValue(), value };
+            }
+        }
+        return new int[2];
     }
 }

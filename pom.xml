@@ -15,6 +15,7 @@
     <module>business-algorithm</module>
     <module>algorithm-design</module>
     <module>self-multi-thread</module>
+      <module>java-io</module>
   </modules>
 
   <properties>
