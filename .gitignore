@@ -27,3 +27,5 @@ hs_err_pid*
 
 *.xml
 *.json
+
+self-multi-thread/target/*
