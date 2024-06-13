@@ -1,7 +1,7 @@
 package org.example.lock;
 
 /**
- * ALock，基于数组
+ * ALock（Tom Anderson），基于数组
  */
 public class ALock {
 }
