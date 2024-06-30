@@ -25,7 +25,6 @@ hs_err_pid*
 *.idea
 *.iml
 
-*.xml
-*.json
+result.json
 
 */target/*
