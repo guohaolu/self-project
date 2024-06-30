@@ -1,2 +1,0 @@
-JMH S 29 org.example.beanchmark.BMDemo S 61 org.example.beanchmark.generated.BMDemo_testStringAdd_jmhTest S 13 testStringAdd S 11 AverageTime I 1 4 A 1 1 1 E I 1 3 T 3 1 s E I 1 5 T 3 5 s E I 1 1 E E E E E M 1 6 length 3 2 10 2 50 3 100 U 11 NANOSECONDS E E 
-JMH S 29 org.example.beanchmark.BMDemo S 68 org.example.beanchmark.generated.BMDemo_testStringBuilderAdd_jmhTest S 20 testStringBuilderAdd S 11 AverageTime I 1 4 A 1 1 1 E I 1 3 T 3 1 s E I 1 5 T 3 5 s E I 1 1 E E E E E M 1 6 length 3 2 10 2 50 3 100 U 11 NANOSECONDS E E 
