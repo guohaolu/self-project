@@ -2,6 +2,9 @@ package com.example.spring.converter;
 
 import java.util.Map;
 import javax.annotation.Generated;
+
+import com.example.spring.employee.converter.Demo;
+import com.example.spring.employee.converter.IDemoConverter;
 import org.springframework.stereotype.Component;
 
 @Generated(

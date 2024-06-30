@@ -1,7 +1,6 @@
-package com.example.spring.converter;
+package com.example.spring.employee.converter;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 
 import java.util.Map;
