@@ -1,6 +1,6 @@
 package com.example.spring.employee.service;
 
-import com.example.spring.employee.converter.Demo;
+import com.example.spring.employee.pojo.dto.Demo;
 import com.example.spring.employee.converter.IDemoConverter;
 import com.google.common.collect.Maps;
 import org.elasticsearch.action.search.SearchRequest;

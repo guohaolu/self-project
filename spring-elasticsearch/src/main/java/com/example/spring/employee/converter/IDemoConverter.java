@@ -1,5 +1,6 @@
 package com.example.spring.employee.converter;
 
+import com.example.spring.employee.pojo.dto.Demo;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 

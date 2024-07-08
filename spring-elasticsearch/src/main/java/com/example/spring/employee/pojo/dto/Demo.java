@@ -1,4 +1,4 @@
-package com.example.spring.employee.converter;
+package com.example.spring.employee.pojo.dto;
 
 import lombok.Data;
 
