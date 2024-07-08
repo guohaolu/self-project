@@ -1,5 +1,7 @@
 package org.example.structure;
 
+import lombok.ToString;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -8,6 +10,7 @@ import java.util.stream.Stream;
 /**
  * 哈希表抽象类
  */
+@ToString
 public abstract class BaseHashSet<T> {
     /**
      * 哈希表

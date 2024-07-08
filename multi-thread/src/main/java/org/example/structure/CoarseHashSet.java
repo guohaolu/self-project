@@ -1,5 +1,7 @@
 package org.example.structure;
 
+import lombok.ToString;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
@@ -9,6 +11,7 @@ import java.util.stream.Stream;
 /**
  * 粗粒度哈希
  */
+@ToString
 public class CoarseHashSet<T> extends BaseHashSet<T> {
     private final Lock lock;
 
