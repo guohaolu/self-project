@@ -3,21 +3,25 @@ package org.example.structure;
 import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
 
 /**
- * 粗粒度哈希
+ * Hash Set with lock striping, 锁分片技术
  */
 @ToString
-public class CoarseHashSet<T> extends BaseHashSet<T> {
-    private final Lock lock;
+public class StripedHashSet<T> extends BaseHashSet<T> {
+    /**
+     * 分片锁，长度固定，不随哈希表扩容而增长
+     */
+    private final Lock[] locks;
 
-    public CoarseHashSet(int capacity) {
+    public StripedHashSet(int capacity) {
         super(capacity);
-        lock = new ReentrantLock();
+        locks = Stream.generate(ReentrantLock::new).limit(capacity).toArray(Lock[]::new);
     }
 
     /**
@@ -27,7 +31,8 @@ public class CoarseHashSet<T> extends BaseHashSet<T> {
      */
     @Override
     public void acquire(T entry) {
-        lock.lock();
+        int slot = entry.hashCode() % table.length;
+        locks[slot].lock();
     }
 
     /**
@@ -37,7 +42,8 @@ public class CoarseHashSet<T> extends BaseHashSet<T> {
      */
     @Override
     public void release(T entry) {
-        lock.unlock();
+        int slot = entry.hashCode() % table.length;
+        locks[slot].unlock();
     }
 
     /**
@@ -48,13 +54,13 @@ public class CoarseHashSet<T> extends BaseHashSet<T> {
     @Override
     @SuppressWarnings("unchecked")
     public void resize(T entry) {
-        lock.lock();
+        Arrays.stream(locks).forEach(Lock::lock);
         try {
             if (!policy(entry)) {
                 // 某个线程已经完成了扩容
                 return;
             }
-            // 进行扩容
+            // 进行扩容，同CoarseHashSet
             int newCapacity = 2 * table.length;
             List<T>[] oldTable = table;
             table = Stream.generate(ArrayList::new).limit(newCapacity).toArray(ArrayList[]::new);
@@ -65,7 +71,7 @@ public class CoarseHashSet<T> extends BaseHashSet<T> {
                 });
             }
         } finally {
-            lock.unlock();
+            Arrays.stream(locks).forEach(Lock::unlock);
         }
     }
 }

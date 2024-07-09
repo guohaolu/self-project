@@ -96,5 +96,7 @@ public abstract class BaseHashSet<T> {
      * @param entry 元素
      * @return 是否达到扩容条件
      */
-    public abstract boolean policy(T entry);
+    public boolean policy(T entry) {
+        return size.get() / table.length > 4;
+    }
 }
