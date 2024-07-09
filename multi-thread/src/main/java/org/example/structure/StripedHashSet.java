@@ -54,6 +54,7 @@ public class StripedHashSet<T> extends BaseHashSet<T> {
     @Override
     @SuppressWarnings("unchecked")
     public void resize(T entry) {
+        // 获取多个锁的操作会使线程在此阻塞，扩容时会停止其他所有操作
         Arrays.stream(locks).forEach(Lock::lock);
         try {
             if (!policy(entry)) {
