@@ -57,7 +57,7 @@ public class StripedHashSet<T> extends BaseHashSet<T> {
         // 获取多个锁的操作会使线程在此阻塞，扩容时会停止其他所有操作
         Arrays.stream(locks).forEach(Lock::lock);
         try {
-            if (!policy(entry)) {
+            if (!policy()) {
                 // 某个线程已经完成了扩容
                 return;
             }

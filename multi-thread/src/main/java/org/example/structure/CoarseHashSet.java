@@ -50,7 +50,7 @@ public class CoarseHashSet<T> extends BaseHashSet<T> {
     public void resize(T entry) {
         lock.lock();
         try {
-            if (!policy(entry)) {
+            if (!policy()) {
                 // 某个线程已经完成了扩容
                 return;
             }

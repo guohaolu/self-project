@@ -63,7 +63,7 @@ public abstract class BaseHashSet<T> {
             release(entry);
         }
         // 考虑扩容
-        if (policy(entry)) {
+        if (policy()) {
             resize(entry);
         }
         return true;
@@ -93,10 +93,9 @@ public abstract class BaseHashSet<T> {
     /**
      * 检测是否达到扩容条件
      *
-     * @param entry 元素
      * @return 是否达到扩容条件
      */
-    public boolean policy(T entry) {
+    public boolean policy() {
         return size.get() / table.length > 4;
     }
 }
