@@ -17,6 +17,7 @@
         <module>multi-thread</module>
         <module>java-io</module>
         <module>spring-elasticsearch</module>
+        <module>spring-redis</module>
     </modules>
 
     <properties>
