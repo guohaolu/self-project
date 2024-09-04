@@ -70,12 +70,10 @@ public class RefinableHashSet<T> extends BaseHashSet<T> {
 
     /**
      * 扩容
-     *
-     * @param entry 元素
      */
     @Override
     @SuppressWarnings("unchecked")
-    public void resize(T entry) {
+    public void resize() {
         Thread me = Thread.currentThread();
 
         if (!owner.compareAndSet(null, me, false, true)) {

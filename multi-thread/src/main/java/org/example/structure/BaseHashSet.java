@@ -64,7 +64,7 @@ public abstract class BaseHashSet<T> {
         }
         // 考虑扩容
         if (policy()) {
-            resize(entry);
+            resize();
         }
         return true;
     }
@@ -85,10 +85,8 @@ public abstract class BaseHashSet<T> {
 
     /**
      * 扩容
-     *
-     * @param entry 元素
      */
-    public abstract void resize(T entry);
+    public abstract void resize();
 
     /**
      * 检测是否达到扩容条件

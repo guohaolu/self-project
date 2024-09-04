@@ -48,12 +48,10 @@ public class StripedHashSet<T> extends BaseHashSet<T> {
 
     /**
      * 扩容
-     *
-     * @param entry 元素
      */
     @Override
     @SuppressWarnings("unchecked")
-    public void resize(T entry) {
+    public void resize() {
         // 获取多个锁的操作会使线程在此阻塞，扩容时会停止其他所有操作
         Arrays.stream(locks).forEach(Lock::lock);
         try {

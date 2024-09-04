@@ -42,12 +42,10 @@ public class CoarseHashSet<T> extends BaseHashSet<T> {
 
     /**
      * 扩容
-     *
-     * @param entry 元素
      */
     @Override
     @SuppressWarnings("unchecked")
-    public void resize(T entry) {
+    public void resize() {
         lock.lock();
         try {
             if (!policy()) {
