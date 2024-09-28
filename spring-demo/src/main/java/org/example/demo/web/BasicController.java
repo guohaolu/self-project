@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.example.demos.web;
+package org.example.demo.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
