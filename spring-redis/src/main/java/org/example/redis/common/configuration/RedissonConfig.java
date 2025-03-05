@@ -22,13 +22,13 @@ import java.io.IOException;
 @EnableCaching
 public class RedissonConfig {
     @Bean(destroyMethod="shutdown")
-    RedissonClient redisson(@Value("classpath:/redisson.yaml") Resource configFile) throws IOException {
+    public RedissonClient redisson(@Value("classpath:/redisson.yaml") Resource configFile) throws IOException {
         Config config = Config.fromYAML(configFile.getInputStream());
         return Redisson.create(config);
     }
 
     @Bean
-    CacheManager cacheManager(RedissonClient redissonClient) {
+    public CacheManager cacheManager(RedissonClient redissonClient) {
         return new RedissonSpringCacheManager(redissonClient, "classpath:/cache-config.yaml");
     }
 }
