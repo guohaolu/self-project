@@ -21,9 +21,16 @@
         <redisson.version>3.18.0</redisson.version>
         <mybatis-plus.version>3.5.7</mybatis-plus.version>
         <fastjson.version>1.2.83</fastjson.version>
+        <hutool.version>5.8.21</hutool.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.21</version>
+        </dependency>
+
         <!-- mysql驱动-->
         <dependency>
             <groupId>mysql</groupId>

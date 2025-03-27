@@ -1,5 +1,7 @@
 package org.example.common;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.metadata.data.ReadCellData;
@@ -98,7 +100,7 @@ public class BatchProcessListener<T> extends AnalysisEventListener<T> implements
     private void processBatch() {
         try {
             List<ExcelRowDTO> sourceList = batchList.stream().map(converter).toList();
-            applicationContext.getBean(ExcelImportDataRepository.class).saveBatch(null);
+            SpringUtil.getBean(ExcelImportDataRepository.class).saveBatch(null);
         } finally {
             // 清空当前批次
             batchList.clear();

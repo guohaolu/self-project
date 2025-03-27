@@ -5,7 +5,6 @@ import com.alibaba.excel.EasyExcel;
 import org.example.common.BatchProcessListener;
 import org.example.common.ProcessNumberUtil;
 import org.example.excel.dto.AmazonVcListingExcelDTO;
-import org.example.excel.entity.AmazonVcListingEntity;
 import org.example.excel.service.ExcelImportService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

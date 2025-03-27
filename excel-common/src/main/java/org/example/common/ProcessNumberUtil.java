@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ProcessNumberUtil {
     // 时间格式：年月日时分秒毫微纳
     private static final DateTimeFormatter FORMATTER =
-            DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSSnnnnnn")
+            DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")
                     .withZone(ZoneId.systemDefault());
 
     // 随机后缀长度
