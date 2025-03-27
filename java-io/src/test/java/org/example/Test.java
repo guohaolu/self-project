@@ -1,17 +1,13 @@
 package org.example;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  */
 public class Test {
     public static void main(String[] args) {
-        String str = "a;b;c";
-        Arrays.stream(str.split(";")).map(Integer::parseInt).forEach(System.out::println);
-
+        String date = LocalDate.now().atStartOfDay().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }

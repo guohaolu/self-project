@@ -1,0 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/ewayt_amazon
+    username: root
+    password: lgh@LGH123
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2-console
+#      settings:
+#        web-allow-others: true
+#  sql:
+#    init:
+#      mode: always  # 应用启动时初始化SQL
+#      schema-locations: classpath:schema.sql  # 数据库初始化脚本
+#      data-locations: classpath:data.sql     # 初始数据脚本
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 打印SQL日志
+    # map-underscore-to-camel-case: true  # 自动转换下划线到驼峰命名
+  global-config:
+    db-config:
+      id-type: auto  # 主键ID自增
+      logic-delete-field: deleted  # 逻辑删除字段名（如果有）
+      logic-not-delete-value: 0    # 逻辑未删除值
+      logic-delete-value: 1        # 逻辑删除值
+  type-aliases-package: com.example.excel.entity  # 实体类所在包
+  mapper-locations: classpath:mapper/*.xml  # Mapper XML文件位置
+
+logging:
+  level:
+    root: info
