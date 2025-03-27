@@ -1,6 +1,5 @@
 package org.example.common;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
@@ -11,12 +10,11 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.example.excel.dto.ExcelRowDTO;
 import org.example.excel.repository.ExcelImportDataRepository;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.lang.NonNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 
 /**
@@ -25,26 +23,18 @@ import java.util.function.Function;
  * @param <T> 类型
  */
 @Slf4j
-public class BatchProcessListener<T> extends AnalysisEventListener<T> implements ApplicationContextAware {
-    private ApplicationContext applicationContext;
-
+public class BatchProcessListener<T> extends AnalysisEventListener<T> {
+    // 批次数据处理消费者
+    private final Function<T, ExcelRowDTO> converter;
+    @Getter
+    private final String processNumber;
+    private final Set<String> expectedHeaders;
     // 批量处理大小
     @Setter
     private int batchSize = 1000;
-
-    private boolean headerValidated = false;
-
     // 临时存储批次数据
     private final List<T> batchList = new ArrayList<>(batchSize);
-
-    // 批次数据处理消费者
-    private final Function<T, ExcelRowDTO> converter;
-
-    @Getter
-    private final String processNumber;
-
-    private final Set<String> expectedHeaders;
-
+    private boolean headerValidated = false;
     // 总处理记录数
     @Getter
     private int totalCount = 0;
@@ -105,10 +95,5 @@ public class BatchProcessListener<T> extends AnalysisEventListener<T> implements
             // 清空当前批次
             batchList.clear();
         }
-    }
-
-    @Override
-    public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
     }
 }
