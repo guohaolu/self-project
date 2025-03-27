@@ -22,6 +22,8 @@
         <module>search-lucene</module>
         <module>spring-ai</module>
         <module>mysql-zebra</module>
+        <module>spring-kafka</module>
+        <module>excel-common</module>
     </modules>
 
     <properties>

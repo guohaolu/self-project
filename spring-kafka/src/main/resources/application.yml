@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: spring-kafka
+
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092,localhost:9093,localhost:9094  # Kafka集群地址
+          required-acks: 1
+          auto-create-topics: false
+
+      bindings:
+        output-channel:  # 定义输出通道
+          destination: demo-topic  # Kafka主题名称
+          content-type: application/json
+
+        input-channel:  # 定义输入通道
+          destination: demo-topic
+          content-type: application/json
+          group: demo-consumer-group  # 消费者组ID
+
+  # 设置Jackson日期格式
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework.cloud.stream: DEBUG
