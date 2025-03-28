@@ -34,7 +34,7 @@ public class BatchProcessListener<T> extends AnalysisEventListener<T> {
     private int batchSize = 1000;
     // 临时存储批次数据
     private final List<T> batchList = new ArrayList<>(batchSize);
-    private boolean headerValidated = false;
+    private final ThreadLocal<Boolean> headerValidated = ThreadLocal.withInitial(() -> false);
     // 总处理记录数
     @Getter
     private int totalCount = 0;
@@ -50,8 +50,14 @@ public class BatchProcessListener<T> extends AnalysisEventListener<T> {
     }
 
     @Override
+    public void onException(Exception exception, AnalysisContext context) throws Exception {
+        headerValidated.remove();
+        throw exception;
+    }
+
+    @Override
     public void invoke(T data, AnalysisContext context) {
-        if (!headerValidated) {
+        if (!headerValidated.get()) {
             throw new IllegalStateException("表头未经验证，数据读取已中止");
         }
 
@@ -66,10 +72,10 @@ public class BatchProcessListener<T> extends AnalysisEventListener<T> {
 
     @Override
     public void invokeHead(Map<Integer, ReadCellData<?>> headMap, AnalysisContext context) {
-        if (!headerValidated) {
+        if (!headerValidated.get()) {
             try {
                 ExcelHeaderValidator.validateHeaderMap(headMap, expectedHeaders);
-                headerValidated = true;
+                headerValidated.set(true);
             } catch (RuntimeException e) {
                 throw new RuntimeException(e);
             }
