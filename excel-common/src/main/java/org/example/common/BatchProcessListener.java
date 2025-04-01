@@ -20,7 +20,8 @@ import java.util.function.Function;
 /**
  * 只允许通过构造器初始化
  *
- * @param <T> 类型
+ * @author guohao.lu
+ * @param <T> Excel导入模版类
  */
 @Slf4j
 public class BatchProcessListener<T> extends AnalysisEventListener<T> {
@@ -39,22 +40,48 @@ public class BatchProcessListener<T> extends AnalysisEventListener<T> {
     @Getter
     private int totalCount = 0;
 
+    /**
+     * 构造函数，初始化BatchProcessListener实例
+     *
+     * @param clazz         数据类型的Class对象
+     * @param processNumber 处理编号
+     */
     public BatchProcessListener(Class<T> clazz, String processNumber) {
         this(clazz, processNumber, obj -> new ExcelRowDTO(clazz.getName(), JSONObject.toJSONString(obj)));
     }
 
+    /**
+     * 构造函数，初始化BatchProcessListener实例
+     *
+     * @param clazz         数据类型的Class对象
+     * @param processNumber 处理编号
+     * @param converter     数据转换函数，将T类型数据转换为ExcelRowDTO
+     */
     public BatchProcessListener(Class<T> clazz, String processNumber, Function<T, ExcelRowDTO> converter) {
         this.processNumber = processNumber;
         this.converter = converter;
         this.expectedHeaders = ExcelHeaderValidator.extractExpectedHeaders(clazz);
     }
 
+    /**
+     * 处理读取Excel时发生的异常
+     *
+     * @param exception 异常对象
+     * @param context   分析上下文
+     * @throws Exception 抛出异常
+     */
     @Override
     public void onException(Exception exception, AnalysisContext context) throws Exception {
         headerValidated.remove();
         throw exception;
     }
 
+    /**
+     * 处理每一行数据
+     *
+     * @param data    当前行数据
+     * @param context 分析上下文
+     */
     @Override
     public void invoke(T data, AnalysisContext context) {
         if (!headerValidated.get()) {
@@ -70,6 +97,12 @@ public class BatchProcessListener<T> extends AnalysisEventListener<T> {
         }
     }
 
+    /**
+     * 处理表头数据，验证表头是否符合预期
+     *
+     * @param headMap 表头数据
+     * @param context 分析上下文
+     */
     @Override
     public void invokeHead(Map<Integer, ReadCellData<?>> headMap, AnalysisContext context) {
         if (!headerValidated.get()) {
@@ -82,6 +115,11 @@ public class BatchProcessListener<T> extends AnalysisEventListener<T> {
         }
     }
 
+    /**
+     * 所有数据解析完成后调用，处理剩余数据
+     *
+     * @param context 分析上下文
+     */
     @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
         // 处理剩余数据
@@ -91,7 +129,7 @@ public class BatchProcessListener<T> extends AnalysisEventListener<T> {
     }
 
     /**
-     * 处理当前批次数据
+     * 处理当前批次数据，将数据转换为ExcelRowDTO并保存
      */
     private void processBatch() {
         try {
