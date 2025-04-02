@@ -24,6 +24,7 @@
         <module>mysql-zebra</module>
         <module>spring-kafka</module>
         <module>excel-common</module>
+        <module>common-log</module>
     </modules>
 
     <properties>
@@ -35,7 +36,6 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -73,6 +73,7 @@
             <artifactId>mapstruct</artifactId>
             <version>${org.mapstruct.version}</version>
         </dependency>
+        <!-- 导入 Spring Boot 的 BOM -->
     </dependencies>
 
     <build>
