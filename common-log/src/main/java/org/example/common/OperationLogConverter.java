@@ -43,6 +43,12 @@ public interface OperationLogConverter {
     @Mapping(source = "operationType.desc", target = "auditName")
     SysAuditLog toSysAuditLog(OperationLogContext operationLogContext);
 
+    /**
+     * 批量转换
+     *
+     * @param operationLogContext 操作日志上下文实体
+     * @return 系统审计日志实体
+     */
     List<SysAuditLog> toSysAuditLog(List<OperationLogContext> operationLogContext);
 
 

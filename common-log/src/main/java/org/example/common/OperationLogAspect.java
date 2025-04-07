@@ -54,21 +54,26 @@ public class OperationLogAspect {
             // 确保operationLog注解不为空
             Assert.notNull(operationLog, "OperationLog is null");
 
-            // 更新操作类型到上下文中
-            if (operationLog.operationType() != OperationLogEnum.OTHER) {
-                OperationLogContextHolder.list().forEach(log -> log.setOperationType(operationLog.operationType()));
-            }
+            if (operationLog.isSingle()) {
+                // 初始化上下文
+                OperationLogContextHolder.add(new OperationLogContext());
+            } else {
+                // 更新操作类型到上下文中
+                if (operationLog.operationType() != OperationLogEnum.OTHER) {
+                    OperationLogContextHolder.list().forEach(log -> log.setOperationType(operationLog.operationType()));
+                }
 
-            // 如果注解中定义了业务ID，则解析并更新到上下文中
-            if (StringUtils.isNotBlank(operationLog.busId())) {
-                String busId = spelExpressionEvaluator.evaluate(point, operationLog.busId(), String.class);
-                OperationLogContextHolder.list().forEach(log -> log.setBusId(busId));
-            }
+                // 如果注解中定义了业务ID，则解析并更新到上下文中
+                if (StringUtils.isNotBlank(operationLog.busId())) {
+                    String busId = spelExpressionEvaluator.evaluate(point, operationLog.busId(), String.class);
+                    OperationLogContextHolder.list().forEach(log -> log.setBusId(busId));
+                }
 
-            // 如果注解中定义了额外参数，则解析并添加到上下文中
-            if (StringUtils.isNotBlank(operationLog.extraParams())) {
-                Map<String, Object> extraParams = spelExpressionEvaluator.evaluate(point, operationLog.extraParams(), Map.class);
-                OperationLogContextHolder.list().forEach(log -> log.setExtraParams(extraParams));
+                // 如果注解中定义了额外参数，则解析并添加到上下文中
+                if (StringUtils.isNotBlank(operationLog.extraParams())) {
+                    Map<String, Object> extraParams = spelExpressionEvaluator.evaluate(point, operationLog.extraParams(), Map.class);
+                    OperationLogContextHolder.list().forEach(log -> log.setExtraParams(extraParams));
+                }
             }
 
             // 执行目标方法
@@ -76,7 +81,7 @@ public class OperationLogAspect {
 
             // 如果注解未启用或上下文为空，则跳过日志记录
             if (!operationLog.enable() || CollectionUtils.isEmpty(OperationLogContextHolder.list())) {
-                log.warn("OperationLog is not enable or context is null, skip operation log save.");
+                log.warn("OperationLog is not enable or context is null or context already consumer, skip operation log save.");
                 return result;
             }
 

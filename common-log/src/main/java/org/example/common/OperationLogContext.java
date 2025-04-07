@@ -49,6 +49,8 @@ public class OperationLogContext {
     @Builder.Default
     private Map<String, Object> extraParams = new HashMap<>();
 
+    private String errorMessage;
+
     /**
      * 操作人，表示执行操作的用户或系统。
      */

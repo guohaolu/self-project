@@ -45,4 +45,11 @@ public @interface OperationLog {
      * @return SpEL表达式字符串，默认值为空字符串。
      */
     String extraParams() default "";
+
+    /**
+     * 是否是单条操作
+     *
+     * @return true 表示是单条操作，false 表示不是单条操作。默认值为 false。
+     */
+    boolean isSingle() default false;
 }

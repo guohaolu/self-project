@@ -20,14 +20,33 @@ public class OperationLogContextHolder {
     private static final ThreadLocal<List<OperationLogContext>> OPERATION_LOG_THREAD_LOCAL = ThreadLocal.withInitial(ArrayList::new);
 
     /**
+     * 重置当前线程的操作日志上下文。
+     * <p>
+     * 该方法会将当前线程的操作日志上下文初始化为一个新的空列表。
+     */
+    public static void reset() {
+        OPERATION_LOG_THREAD_LOCAL.set(new ArrayList<>());
+    }
+
+    /**
      * 获取当前线程的操作日志上下文。
      *
-     * @return 当前线程的OperationLogContext对象。如果没有设置，则返回null。
+     * @return 当前线程的OperationLogContext对象列表。如果没有设置，则返回一个空列表。
      */
     public static List<OperationLogContext> list() {
         return OPERATION_LOG_THREAD_LOCAL.get();
     }
 
+    /**
+     * 批量添加操作日志到当前线程的上下文中。
+     * <p>
+     * 如果传入的操作日志列表为空，则直接返回。
+     * 对于每个操作日志，如果操作人或操作时间为空，则会自动填充默认值：
+     * - 操作人：从SecurityUtils获取当前用户，若无用户则默认为"admin"；
+     * - 操作时间：设置为当前时间。
+     *
+     * @param operationLogList 要添加的操作日志列表。
+     */
     public static void addAll(List<OperationLogContext> operationLogList) {
         if (CollectionUtils.isEmpty(operationLogList)) {
             return;
@@ -43,6 +62,16 @@ public class OperationLogContextHolder {
         OPERATION_LOG_THREAD_LOCAL.get().addAll(operationLogList);
     }
 
+    /**
+     * 添加单个操作日志到当前线程的上下文中。
+     * <p>
+     * 如果传入的操作日志为空，则直接返回。
+     * 如果操作日志的操作人或操作时间为空，则会自动填充默认值：
+     * - 操作人：从SecurityUtils获取当前用户，若无用户则默认为"admin"；
+     * - 操作时间：设置为当前时间。
+     *
+     * @param operationLog 要添加的操作日志对象。
+     */
     public static void add(OperationLogContext operationLog) {
         if (operationLog == null) {
             return;
