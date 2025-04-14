@@ -23,14 +23,16 @@ public class JaversTest {
                     (a, b) -> a.compareTo(b) == 0,
                     a -> a.stripTrailingZeros().toString())
             .withListCompareAlgorithm(ListCompareAlgorithm.AS_SET)
+            .registerValue(Person.class)
             .build();
 
     @Test
     void testCompare() {
-        Person tom = new Person("u1", "tom", Position.Hero);
-        Person jack = new Person("u2", "jack", Position.Townsman);
-        Person jerry = new Person("u3", "jerry", Position.Developer);
-        Person mike = new Person("u4", "mike", Position.Saleswoman);
+        Person tom = new Person("u1", "tom", new BigDecimal("2.500000"), Position.Hero);
+        Person jack = new Person("u2", "jack", new BigDecimal("2.50000"), Position.Townsman);
+        Person jerry = new Person("u3", "jerry", new BigDecimal("2.5000"), Position.Developer);
+        Person mike = new Person("u4", "mike", new BigDecimal("2.50"), Position.Developer);
+        Person mike1 = new Person("u4", "mike", new BigDecimal("2.50"), Position.Saleswoman);
 
         Employee frodoOld = Employee.builder().name("Frodo")
                 .age(40)
@@ -39,20 +41,20 @@ public class JaversTest {
                 .primaryAddress(new Address("Shire"))
                 .skills(Collections.singleton("management"))
                 .subordinates(null)
-                .personList(Lists.newArrayList(tom, jack))
+                .personList(Lists.newArrayList(tom, mike1))
                 .build();
 
         Employee frodoNew = Employee.builder().name("Frodo")
-                .age(45)
-                .position(Position.Developer)
-                .salary(BigDecimal.valueOf(100))
-                .primaryAddress(new Address("Addre11"))
-                .skills(Collections.singleton("study"))
-                .subordinates(new ArrayList<>())
-                .personList(Lists.newArrayList(jerry, mike, jack))
+                .age(40)
+                .position(Position.Assistant)
+                .salary(BigDecimal.valueOf(100.0000))
+                .primaryAddress(new Address("Shire"))
+                .skills(Collections.singleton("management"))
+                .subordinates(null)
+                .personList(Lists.newArrayList(tom, mike))
                 .build();
 
-        Diff compare = JAVERS.compare(frodoOld, frodoNew);
+        Diff compare = JAVERS.compare(null, frodoOld);
         String prettyPrint = compare.prettyPrint();
 
         String strip = StringUtils.strip(prettyPrint, "Diff:\n");
